@@ -44,3 +44,7 @@ class TestSimulator(TestCase):
         self.sim.set_world(world)
         self.assertIsInstance(self.sim.get_world(), World)
         self.assertIs(self.sim.get_world(), world)
+
+    def test_world_alive(self):
+        self.sim.update()
+        self.assertEqual(self.sim.world.world[0][0], 1)
