@@ -48,3 +48,7 @@ class TestSimulator(TestCase):
     def test_world_alive(self):
         self.sim.update()
         self.assertEqual(self.sim.world.world[0][0], 1)
+
+    def test_count_neighbors(self):
+        self.assertEqual(self.sim.world.get_neighbours(1, 1), [1, 1, 1, 1, 1, 1, 1, 1])
+        self.assertEqual(np.count_nonzero(self.sim.world.get_neighbours(1, 1)), np.count_nonzero([1, 1, 1, 1, 1, 1, 1, 1]))
