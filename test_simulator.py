@@ -52,3 +52,14 @@ class TestSimulator(TestCase):
         self.sim.world.set(1, 1, 1)
         self.sim.update()
         self.assertEqual(self.sim.world.get(1, 1), 0)
+
+    def test_update_2(self):
+        """Elke levende cel met meer dan drie levende buren gaat dood"""
+        self.sim.world.set(1, 1, 1)  # Target
+        self.sim.world.set(0, 0, 1)
+        self.sim.world.set(1, 0, 1)
+        self.sim.world.set(2, 0, 1)
+        self.sim.world.set(1, 2, 1)
+        self.sim.update()
+        self.assertEqual(self.sim.world.get(1, 1), 0)
+
