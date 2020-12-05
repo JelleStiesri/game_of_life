@@ -9,12 +9,6 @@ class TestSimulator(TestCase):
     def setUp(self):
         self.sim = Simulator()
 
-    def test_update(self):
-        """
-        Tests that the update functions returns an object of World type.
-        """
-        self.assertIsInstance(self.sim.update(), World)
-
     def test_get_generation(self):
         """
         Tests whether get_generation returns the correct value:
@@ -45,10 +39,16 @@ class TestSimulator(TestCase):
         self.assertIsInstance(self.sim.get_world(), World)
         self.assertIs(self.sim.get_world(), world)
 
-    def test_world_alive(self):
-        self.sim.update()
-        self.assertEqual(self.sim.world.world[0][0], 1)
+    #  Door mij geschreven tests
+    def test_update(self):
+        """
+        Tests that the update functions returns an object of World type.
+        """
+        self.assertIsInstance(self.sim.update(), World)
 
-    def test_count_neighbors(self):
-        self.assertEqual(self.sim.world.get_neighbours(1, 1), [1, 1, 1, 1, 1, 1, 1, 1])
-        self.assertEqual(np.count_nonzero(self.sim.world.get_neighbours(1, 1)), np.count_nonzero([1, 1, 1, 1, 1, 1, 1, 1]))
+    def test_update_1(self):
+        """Elke levende cel met minder dan twee levende buren gaat dood"""
+
+        self.sim.world.set(1, 1, 1)
+        self.sim.update()
+        self.assertEqual(self.sim.world.get(1, 1), 0)
