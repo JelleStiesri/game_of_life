@@ -73,8 +73,9 @@ class TestSimulator(TestCase):
 
     def test_update_4(self):
         """Elke dode cel met precies drie levende buren komt tot leven"""
+        self.sim.world.set(1, 1, 0) # Target
         self.sim.world.set(1, 0, 1)
         self.sim.world.set(0, 1, 1)
         self.sim.world.set(2, 1, 1)
         self.sim.update()
-        self.assertEqual(self.sim.world.get(0, 0), 1)
+        self.assertEqual(self.sim.world.get(1, 1), 1)
