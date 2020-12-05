@@ -63,3 +63,10 @@ class TestSimulator(TestCase):
         self.sim.update()
         self.assertEqual(self.sim.world.get(1, 1), 0)
 
+    def test_update_3(self):
+        """Elke cel met twee of drie levende buren overleeft, onveranderd naar de volgende generatie"""
+        self.sim.world.set(1, 1, 1)  # Target
+        self.sim.world.set(1, 0, 1)
+        self.sim.world.set(0, 1, 1)
+        self.sim.update()
+        self.assertEqual(self.sim.world.get(1, 1), 1)
