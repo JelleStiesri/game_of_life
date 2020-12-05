@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 from World import *
 
 class Simulator:
@@ -26,9 +28,26 @@ class Simulator:
         """
         self.generation += 1
 
-        #TODO: Do something to evolve the generation
+        self.prevWorld = deepcopy(self.world)  # Maakt een copy van de vorige wereld
+
+        for x in range(self.world.width):
+            for y in range(self.world.height):
+
+                total_neigbours = np.count_nonzero(self.prevWorld.get_neighbours(x, y))  # Geeft het aantal levende buren
+
+                if self.prevWorld.get(x, y) == 1: # Als de cel nog leeft
+                    if total_neigbours == 2 or total_neigbours == 3:
+                        self.world.set(x, y)
+                    else:
+                        self.world.set(x, y, 0)
+                else: # Als de cel al dood is
+                    if total_neigbours == 3:
+                        self.world.set(x, y, 1)
+                    else:
+                        self.world.set(x, y, 0)
 
         return self.world
+
 
     def get_generation(self):
         """
@@ -54,3 +73,4 @@ class Simulator:
 
         """
         self.world = world
+
